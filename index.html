@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,157 +11,531 @@
             font-family: 'Inter', sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
+
         .white {
             background-color: #ffffff;
             color: #000000;
         }
+
         .dark {
             background-color: #000000;
             color: #ffffff;
         }
+
         .white .accent {
             background-color: #000000;
             color: #ffffff;
         }
+
         .dark .accent {
             background-color: #ffffff;
             color: #000000;
         }
+
         .white .accent:hover {
             background-color: #000000;
         }
+
         .dark .accent:hover {
             background-color: #e0e0e0;
         }
+
         .card {
             transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
         }
+
         .modal {
             animation: fadeIn 0.3s ease-out;
         }
+
         .bookmark-item {
             animation: slideIn 0.3s ease-out;
         }
+
         .category-item {
             animation: slideIn 0.3s ease-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
+
         .bounce {
             animation: bounce 0.2s ease-out;
         }
+
         @keyframes bounce {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        .sidebar {
-            transition: width 0.3s;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                overflow: hidden;
+            0% {
+                transform: scale(1);
             }
-            .sidebar.open {
-                width: 16rem;
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
             }
         }
+
         .icon {
             width: 1.5rem;
             height: 1.5rem;
         }
+
         .white .border-theme {
             border-color: #000000;
         }
+
         .dark .border-theme {
             border-color: #ffffff;
         }
+
         .white .bg-theme {
             background-color: #ffffff;
         }
+
         .dark .bg-theme {
             background-color: #000000;
         }
+
         .white .bg-input {
             background-color: #ffffff;
         }
+
         .dark .bg-input {
             background-color: #000000;
         }
+
         .white .bg-secondary {
             background-color: #e0e0e0;
         }
+
         .dark .bg-secondary {
             background-color: #000000;
         }
+
         .white .hover:bg-secondary:hover {
             background-color: #d0d0d0;
         }
+
         .dark .hover:bg-secondary:hover {
             background-color: #000000;
         }
+
         .white .text-theme {
             color: #000000;
         }
+
         .dark .text-theme {
             color: #ffffff;
         }
+
+        .category-bar {
+            display: none;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            flex: 0 1 auto;
+            text-align: center;
+        }
+
+        .category-btn.active {
+            font-weight: 600;
+            border: 2px solid #000000;
+        }
+
+        .category-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Desktop layout */
+        .sidebar {
+            width: 16rem;
+            padding: 1rem;
+            border-right: 1px solid #000000;
+        }
+
+        /* Floating circle */
+        #linkCircle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            background-color: #000000;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .white #linkCircle {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .dark #linkCircle {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        #linkCircle:hover {
+            transform: scale(1.1);
+        }
+
+        #linkCircle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Overlay Popup */
+        #linkOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #linkOverlayContent {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 24rem;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark #linkOverlayContent {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        #linkOverlayClose {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+
+        .white #linkOverlayClose svg {
+            stroke: #000000;
+        }
+
+        .dark #linkOverlayClose svg {
+            stroke: #ffffff;
+        }
+
+        /* Mobile-friendly media queries */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .category-bar {
+                display: flex;
+            }
+
+            .header-container {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .bookmark-list {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 1rem;
+            }
+
+            .modal-content h3 {
+                font-size: 1rem;
+            }
+
+            .modal-content input,
+            .modal-content select {
+                font-size: 0.875rem;
+            }
+
+            .modal-content button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .category-item {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            .bookmark-item {
+                padding: 0.75rem;
+            }
+
+            .bookmark-item h3 {
+                font-size: 0.875rem;
+            }
+
+            .bookmark-item a {
+                font-size: 0.75rem;
+            }
+
+            #linkCircle {
+                width: 2.5rem;
+                height: 2.5rem;
+                bottom: 0.75rem;
+                right: 0.75rem;
+            }
+
+            #linkOverlayContent {
+                padding: 1.5rem;
+            }
+
+            .category-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 0.5rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title {
+                font-size: 1.25rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+            }
+
+            .header-buttons button {
+                width: 100%;
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            .search-bar {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            .icon {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 0.75rem;
+            }
+
+            .modal-content h3 {
+                font-size: 0.875rem;
+            }
+
+            .modal-content input,
+            .modal-content select {
+                font-size: 0.75rem;
+            }
+
+            .modal-content button {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .category-item {
+                font-size: 0.75rem;
+                padding: 0.25rem;
+            }
+
+            .bookmark-item {
+                padding: 0.5rem;
+            }
+
+            .bookmark-item h3 {
+                font-size: 0.75rem;
+            }
+
+            .bookmark-item a {
+                font-size: 0.625rem;
+            }
+
+            #linkCircle {
+                width: 2rem;
+                height: 2rem;
+                bottom: 0.5rem;
+                right: 0.5rem;
+            }
+
+            #linkOverlayContent {
+                padding: 1rem;
+            }
+
+            .category-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+            flex: 0 1 auto;
+            text-align: center;
+        }
+
+        .white .category-btn {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            color: #000000;
+        }
+
+        .dark .category-btn {
+            background-color: #1a1a1a;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .category-btn.active {
+            font-weight: 600;
+        }
+
+        .white .category-btn.active {
+            border: 2px solid #000000;
+            background-color: #f0f0f0;
+        }
+
+        .dark .category-btn.active {
+            border: 2px solid #ffffff;
+            background-color: #333333;
+        }
+
+        .white .category-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dark .category-btn:hover {
+            background-color: #333333;
+        }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col white">
     <header class="p-4 bg-theme border-b border-theme sticky top-0 z-10">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="container mx-auto flex justify-between items-center header-container">
             <div class="flex items-center space-x-4">
-                <button id="toggleSidebar" class="md:hidden text-theme" aria-label="Toggle sidebar">
-                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <h1 class="text-2xl font-bold flex items-center text-theme">
+                <h1 class="text-2xl font-bold flex items-center text-theme header-title">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     Marked - The Bookmark Vault
                 </h1>
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4 header-buttons">
                 <div class="relative">
-                    <input type="text" id="searchBar" class="pl-10 pr-3 py-2 border border-theme rounded-lg w-64 bg-input text-theme" placeholder="Search bookmarks..." aria-label="Search bookmarks">
-                    <svg class="icon absolute left-3 top-2.5 text-theme" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4-4m0-2a7 7 0 100-14 7 7 0 000 14z"/>
+                    <input type="text" id="searchBar"
+                        class="pl-10 pr-3 py-2 border border-theme rounded-lg w-64 bg-input text-theme search-bar"
+                        placeholder="Search bookmarks..." aria-label="Search bookmarks">
+                    <svg class="icon absolute left-3 top-1/2 -translate-y-1/2 text-theme" fill="none" stroke="currentColor" viewBox="0 0 24 24" margin-top="5px">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-4-4m0 0a6 6 0 10-8.485-8.485A6 6 0 0011 11z" />
                     </svg>
                 </div>
-                <button id="importBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Import bookmarks">
+                <button id="importBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
+                    aria-label="Import bookmarks">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                     Import
                 </button>
-                <button id="exportBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Export bookmarks">
+                <button id="exportBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
+                    aria-label="Export bookmarks">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0L8 12m4 4V4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0L8 12m4 4V4" />
                     </svg>
                     Export
                 </button>
                 <button id="themeToggle" class="p-2 bg-secondary rounded text-theme" aria-label="Toggle theme">
                     <svg id="themeIcon" class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                 </button>
-                <button id="addCategoryBtn" class="px-4 py-2 accent rounded flex items-center" aria-label="Add category">
+                <button id="addCategoryBtn" class="px-4 py-2 accent rounded flex items-center"
+                    aria-label="Add category">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     Add Category
                 </button>
@@ -169,10 +544,11 @@
     </header>
 
     <div class="flex flex-1 container mx-auto">
-        <aside id="sidebar" class="sidebar w-64 p-4 border-r border-theme bg-theme md:w-64">
+        <aside id="sidebar" class="sidebar w-64 p-4 border-r border-theme bg-theme">
             <h2 class="text-lg font-semibold mb-4 flex items-center text-theme">
                 <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
                 </svg>
                 Categories
             </h2>
@@ -180,41 +556,51 @@
         </aside>
 
         <main class="flex-1 p-4">
+            <div id="categoryBar" class="category-bar mb-4"></div>
             <div class="flex justify-between items-center mb-4">
                 <h2 id="currentCategory" class="text-xl font-semibold flex items-center text-theme">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     All Bookmarks
                 </h2>
-                <button id="addBookmarkBtn" class="px-4 py-2 accent rounded flex items-center" aria-label="Add bookmark">
+                <button id="addBookmarkBtn" class="px-4 py-2 accent rounded flex items-center"
+                    aria-label="Add bookmark">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                     Add Bookmark
                 </button>
             </div>
-            <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" role="list"></div>
+            <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bookmark-list"
+                role="list"></div>
         </main>
     </div>
 
     <!-- Modal for adding/editing -->
-    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center" role="dialog" aria-modal="true">
-        <div class="bg-theme p-6 rounded-lg w-96 modal">
+    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center"
+        role="dialog" aria-modal="true">
+        <div class="bg-theme p-6 rounded-lg w-96 modal modal-content">
             <h3 id="modalTitle" class="text-lg font-semibold mb-4 flex items-center text-theme">
                 <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                 </svg>
                 <span></span>
             </h3>
             <form id="bookmarkForm">
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkName">Name</label>
-                    <input type="text" id="bookmarkName" class="w-full border border-theme p-2 rounded bg-input text-theme" required aria-required="true">
+                    <input type="text" id="bookmarkName"
+                        class="w-full border border-theme p-2 rounded bg-input text-theme" required
+                        aria-required="true">
                 </div>
                 <div class="mb-4" id="urlInput">
                     <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkUrl">URL</label>
-                    <input type="text" id="bookmarkUrl" class="w-full border border-theme p-2 rounded bg-input text-theme" placeholder="https://example.com" aria-required="true">
+                    <input type="text" id="bookmarkUrl"
+                        class="w-full border border-theme p-2 rounded bg-input text-theme"
+                        placeholder="https://example.com" aria-required="true">
                     <p id="urlError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid URL</p>
                 </div>
                 <div class="mb-4" id="categorySelect">
@@ -224,15 +610,18 @@
                     </select>
                 </div>
                 <div class="flex justify-end space-x-2">
-                    <button type="button" id="cancelBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Cancel">
+                    <button type="button" id="cancelBtn"
+                        class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Cancel">
                         <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                         Cancel
                     </button>
-                    <button type="submit" id="saveBtn" class="px-4 py-2 accent rounded flex items-center" aria-label="Save">
+                    <button type="submit" id="saveBtn" class="px-4 py-2 accent rounded flex items-center"
+                        aria-label="Save">
                         <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                         Save
                     </button>
@@ -242,25 +631,30 @@
     </div>
 
     <!-- Confirmation Dialog -->
-    <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center" role="dialog" aria-modal="true">
-        <div class="bg-theme p-6 rounded-lg w-80 modal">
+    <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center"
+        role="dialog" aria-modal="true">
+        <div class="bg-theme p-6 rounded-lg w-80 modal modal-content">
             <h3 class="text-lg font-semibold mb-4 flex items-center text-theme">
                 <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Confirm Delete
             </h3>
             <p id="confirmMessage" class="mb-4 text-theme"></p>
             <div class="flex justify-end space-x-2">
-                <button id="confirmCancel" class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Cancel">
+                <button id="confirmCancel" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
+                    aria-label="Cancel">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
                     Cancel
                 </button>
                 <button id="confirmDelete" class="px-4 py-2 accent rounded flex items-center" aria-label="Delete">
                     <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4" />
                     </svg>
                     Delete
                 </button>
@@ -269,6 +663,33 @@
     </div>
 
     <input type="file" id="importInput" class="hidden" accept=".json">
+
+    <div id="linkCircle" aria-label="Open links overlay">
+        <img src="1.png" alt="Links" class="w-full h-full object-cover rounded-full">
+    </div>
+    <div id="linkOverlay"
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-2000">
+        <div id="linkOverlayContent" class="bg-white p-6 rounded-lg w-90% max-w-24rem relative shadow-lg dark:bg-black">
+            <button id="linkOverlayClose"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-xl font-bold mb-4 text-black dark:text-white">Connect</h2>
+            <ul class="mb-6 space-y-2">
+                <li><a href="mailto:your.email@example.com"
+                        class="text-blue-600 hover:underline dark:text-blue-400">Email</a></li>
+                <li><a href="https://www.linkedin.com/in/your-profile"
+                        class="text-blue-600 hover:underline dark:text-blue-400" target="_blank">LinkedIn</a></li>
+                <li><a href="https://your-website.com" class="text-blue-600 hover:underline dark:text-blue-400"
+                        target="_blank">Website</a></li>
+            </ul>
+            <h2 class="text-xl font-bold mb-4 text-black dark:text-white">About Me</h2>
+            <p class="text-gray-700 dark:text-gray-300">Hello! I’m passionate about [your interests], with experience in
+                [your skills/experience]. Feel free to reach out for collaborations or just to chat!</p>
+        </div>
+    </div>
 
     <script>
         // LocalStorage handling
@@ -295,6 +716,7 @@
 
         // DOM elements
         const categoryList = document.getElementById('categoryList');
+        const categoryBar = document.getElementById('categoryBar');
         const bookmarkList = document.getElementById('bookmarkList');
         const addCategoryBtn = document.getElementById('addCategoryBtn');
         const addBookmarkBtn = document.getElementById('addBookmarkBtn');
@@ -310,8 +732,6 @@
         const currentCategory = document.getElementById('currentCategory');
         const categorySelect = document.getElementById('categorySelect');
         const searchBar = document.getElementById('searchBar');
-        const sidebar = document.getElementById('sidebar');
-        const toggleSidebar = document.getElementById('toggleSidebar');
         const importBtn = document.getElementById('importBtn');
         const exportBtn = document.getElementById('exportBtn');
         const importInput = document.getElementById('importInput');
@@ -322,6 +742,9 @@
         const urlError = document.getElementById('urlError');
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
+        const linkCircle = document.getElementById('linkCircle');
+        const linkOverlay = document.getElementById('linkOverlay');
+        const linkOverlayClose = document.getElementById('linkOverlayClose');
 
         let editingBookmarkId = null;
         let selectedCategory = null;
@@ -367,8 +790,8 @@
         // Render functions
         function renderCategories() {
             const categories = storage.getCategories();
-            const theme = storage.getTheme();
-            const categoryColor = theme === 'white' ? '#000000' : '#ffffff';
+
+            // Render sidebar (desktop)
             categoryList.innerHTML = `
                 <li class="category-item cursor-pointer p-2 rounded hover:bg-secondary flex justify-between items-center ${!selectedCategory ? 'bg-secondary' : ''}" data-id="all">
                     <span class="flex items-center text-theme">
@@ -379,13 +802,13 @@
                     </span>
                     <span class="text-xs bg-secondary px-2 py-1 rounded text-theme">${storage.getBookmarks().length}</span>
                 </li>`;
-            
+
             categories.forEach(category => {
                 const bookmarkCount = storage.getBookmarks().filter(b => b.category === category.id).length;
                 categoryList.innerHTML += `
                     <li class="category-item cursor-pointer p-2 rounded hover:bg-secondary flex justify-between items-center ${selectedCategory === category.id ? 'bg-secondary' : ''}" data-id="${category.id}">
                         <span class="flex items-center text-theme">
-                            <span class="w-3 h-3 rounded-full mr-2" style="background-color: ${category.color || categoryColor}"></span>
+                            <span class="w-3 h-3 rounded-full mr-2" style="background-color: #808080"></span>
                             ${category.name}
                         </span>
                         <div class="flex items-center space-x-2">
@@ -398,6 +821,24 @@
                         </div>
                     </li>`;
             });
+
+            // Render category bar (mobile)
+            categoryBar.innerHTML = `
+                <button class="category-btn ${!selectedCategory ? 'active' : ''}" data-id="all">
+                    All (${storage.getBookmarks().length})
+                </button>`;
+
+            categories.forEach(category => {
+                const bookmarkCount = storage.getBookmarks().filter(b => b.category === category.id).length;
+                categoryBar.innerHTML += `
+                    <button class="category-btn ${selectedCategory === category.id ? 'active' : ''}" data-id="${category.id}">
+                        <span class="flex items-center">
+                            <span class="w-3 h-3 rounded-full mr-2" style="background-color: #808080"></span>
+                            ${category.name} (${bookmarkCount})
+                        </span>
+                    </button>`;
+            });
+
             updateCategoryDropdown();
         }
 
@@ -406,13 +847,13 @@
             const theme = storage.getTheme();
             const faviconColor = theme === 'white' ? '#000000' : '#ffffff';
             bookmarkList.innerHTML = '';
-            const filteredBookmarks = selectedCategory 
+            const filteredBookmarks = selectedCategory
                 ? bookmarks.filter(b => b.category === selectedCategory)
                 : bookmarks;
 
-            const searchedBookmarks = searchTerm 
-                ? filteredBookmarks.filter(b => 
-                    b.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            const searchedBookmarks = searchTerm
+                ? filteredBookmarks.filter(b =>
+                    b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                     b.url.toLowerCase().includes(searchTerm.toLowerCase()))
                 : filteredBookmarks;
 
@@ -571,6 +1012,26 @@
             reader.readAsText(file);
         }
 
+        // Overlay handling
+        function toggleLinkOverlay() {
+            linkOverlay.style.display = linkOverlay.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        linkCircle.addEventListener('click', e => {
+            e.stopPropagation();
+            toggleLinkOverlay();
+        });
+
+        linkOverlayClose.addEventListener('click', e => {
+            toggleLinkOverlay();
+        });
+
+        document.addEventListener('click', e => {
+            if (linkOverlay.style.display === 'flex' && !linkOverlayContent.contains(e.target) && e.target !== linkCircle) {
+                toggleLinkOverlay();
+            }
+        });
+
         // Event handlers
         addCategoryBtn.addEventListener('click', e => {
             e.target.closest('button').classList.add('bounce');
@@ -597,9 +1058,6 @@
 
         bookmarkForm.addEventListener('submit', e => {
             e.preventDefault();
-            
-            const theme = storage.getTheme();
-            const categoryColor = theme === 'white' ? '#000000' : '#ffffff';
 
             if (modalTitle.textContent !== 'Add Category') {
                 let url = bookmarkUrl.value.trim();
@@ -618,7 +1076,7 @@
                     url: url,
                     category: bookmarkCategory.value || ''
                 };
-                
+
                 if (bookmarkData.name && bookmarkData.url) {
                     if (editingBookmarkId) {
                         const index = bookmarks.findIndex(b => b.id === editingBookmarkId);
@@ -633,7 +1091,7 @@
                 const newCategory = {
                     id: Date.now().toString(),
                     name: bookmarkName.value.trim(),
-                    color: categoryColor
+                    color: '#808080' // Fixed grey color
                 };
                 if (newCategory.name) {
                     categories.push(newCategory);
@@ -654,18 +1112,18 @@
         categoryList.addEventListener('click', e => {
             const categoryItem = e.target.closest('li');
             const deleteBtn = e.target.closest('.delete-category');
-            
+
             if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
                 showConfirmModal('Are you sure you want to delete this category and its bookmarks?', () => {
                     let categories = storage.getCategories();
                     categories = categories.filter(c => c.id !== id);
                     storage.saveCategories(categories);
-                    
+
                     let bookmarks = storage.getBookmarks();
                     bookmarks = bookmarks.filter(b => b.category !== id);
                     storage.saveBookmarks(bookmarks);
-                    
+
                     if (selectedCategory === id) selectedCategory = null;
                     renderCategories();
                     renderBookmarks(searchBar.value);
@@ -675,7 +1133,19 @@
 
             if (categoryItem) {
                 selectedCategory = categoryItem.dataset.id === 'all' ? null : categoryItem.dataset.id;
-                currentCategory.innerHTML = selectedCategory 
+                currentCategory.innerHTML = selectedCategory
+                    ? `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">${storage.getCategories().find(c => c.id === selectedCategory).name}</span>`
+                    : `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">All Bookmarks</span>`;
+                renderBookmarks(searchBar.value);
+                renderCategories();
+            }
+        });
+
+        categoryBar.addEventListener('click', e => {
+            const btn = e.target.closest('.category-btn');
+            if (btn) {
+                selectedCategory = btn.dataset.id === 'all' ? null : btn.dataset.id;
+                currentCategory.innerHTML = selectedCategory
                     ? `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">${storage.getCategories().find(c => c.id === selectedCategory).name}</span>`
                     : `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">All Bookmarks</span>`;
                 renderBookmarks(searchBar.value);
@@ -707,10 +1177,6 @@
         searchBar.addEventListener('input', debounce(e => {
             renderBookmarks(e.target.value);
         }, 300));
-
-        toggleSidebar.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
 
         importBtn.addEventListener('click', e => {
             e.target.closest('button').classList.add('bounce');
@@ -750,6 +1216,7 @@
             if (e.key === 'Escape') {
                 if (!modal.classList.contains('hidden')) hideModal();
                 if (!confirmModal.classList.contains('hidden')) hideConfirmModal();
+                if (linkOverlay.style.display === 'flex') toggleLinkOverlay();
             }
             if (e.ctrlKey && e.key === 'f') {
                 e.preventDefault();
@@ -762,4 +1229,5 @@
         renderBookmarks();
     </script>
 </body>
+
 </html>
