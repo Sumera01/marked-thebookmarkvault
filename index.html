@@ -975,7 +975,7 @@
                         Add Bookmark
                     </button>
                 </div>
-                <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bookmark-list"
+                <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bookmark-list"
                     role="list"></div>
             </main>
         </div>
@@ -1306,8 +1306,9 @@
                         <div class="flex items-center space-x-3">
                             <img src="${favicon}" alt="" class="w-5 h-5" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\"/%3E%3C/svg%3E';">
                             <div>
-                                <h3 class="font-semibold text-theme">${bookmark.name}</h3>
-                                <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline text-sm break-all">${bookmark.url}</a>
+                                <h3 class="font-semibold text-theme">
+                                    <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline">${bookmark.name}</a>
+                                </h3>
                             </div>
                         </div>
                         <div class="flex mt-2">
