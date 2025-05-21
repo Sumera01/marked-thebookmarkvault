@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -206,20 +205,43 @@
             border-radius: 0.375rem;
             font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.2s;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
             flex: 0 1 auto;
             text-align: center;
         }
 
-        .category-btn.active {
-            font-weight: 600;
-            border: 2px solid #000000;
+        .white .category-btn {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            color: #000000;
         }
 
-        .category-btn:hover {
+        .dark .category-btn {
+            background-color: #1a1a1a;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .category-btn.active {
+            font-weight: 600;
+        }
+
+        .white .category-btn.active {
+            border: 2px solid #000000;
             background-color: #f0f0f0;
+        }
+
+        .dark .category-btn.active {
+            border: 2px solid #ffffff;
+            background-color: #333333;
+        }
+
+        .white .category-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dark .category-btn:hover {
+            background-color: #333333;
         }
 
         .sidebar {
@@ -372,11 +394,11 @@
             }
 
             .bookmark-item h3 {
-                font-size: 0.875rem;
+                font-size: 0.92rem; /* Increased by 5% from 0.875rem */
             }
 
             .bookmark-item a {
-                font-size: 0.625rem;
+                font-size: 0.66rem; /* Increased by 5% from 0.625rem */
             }
 
             #linkCircle {
@@ -482,11 +504,11 @@
             }
 
             .bookmark-item h3 {
-                font-size: 0.75rem;
+                font-size: 0.79rem; /* Increased by 5% from 0.75rem */
             }
 
             .bookmark-item a {
-                font-size: 0.5rem;
+                font-size: 0.53rem; /* Increased by 5% from 0.5rem */
             }
 
             #linkCircle {
@@ -526,50 +548,6 @@
                 flex-wrap: nowrap;
                 gap: 0.5rem;
             }
-        }
-
-        .category-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-            flex: 0 1 auto;
-            text-align: center;
-        }
-
-        .white .category-btn {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            color: #000000;
-        }
-
-        .dark .category-btn {
-            background-color: #1a1a1a;
-            border: 1px solid #ffffff;
-            color: #ffffff;
-        }
-
-        .category-btn.active {
-            font-weight: 600;
-        }
-
-        .white .category-btn.active {
-            border: 2px solid #000000;
-            background-color: #f0f0f0;
-        }
-
-        .dark .category-btn.active {
-            border: 2px solid #ffffff;
-            background-color: #333333;
-        }
-
-        .white .category-btn:hover {
-            background-color: #f0f0f0;
-        }
-
-        .dark .category-btn:hover {
-            background-color: #333333;
         }
 
         /* Loader Styles */
@@ -765,8 +743,8 @@
         }
 
         .bookmark-item img {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 2rem; /* Increased to 32px (from 1.5rem) */
+            height: 2rem; /* Increased to 32px (from 1.5rem) */
             object-fit: contain; /* Ensure proper scaling */
             background-color: rgba(0, 0, 0, 0.05); /* Subtle background for light theme */
         }
@@ -776,11 +754,11 @@
         }
 
         .bookmark-item h3 {
-            font-size: 1rem;
+            font-size: 1.05rem; /* Increased by 5% from 1rem */
         }
 
         .bookmark-item a {
-            font-size: 0.75rem;
+            font-size: 0.79rem; /* Increased by 5% from 0.75rem */
         }
 
         .bookmark-item .flex.mt-2 {
@@ -874,7 +852,6 @@
         }
     </style>
 </head>
-
 <body class="min-h-screen flex flex-col white">
     <div id="loader" class="fixed inset-0 flex items-center justify-center z-3000">
         <div class="loader-container">
@@ -996,7 +973,7 @@
                     </svg>
                     <span></span>
                 </h3>
-                <form id="bookmarkForm">
+                <div id="bookmarkForm">
                     <div class="mb-4">
                         <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkName">Name</label>
                         <input type="text" id="bookmarkName"
@@ -1025,7 +1002,7 @@
                             </svg>
                             Cancel
                         </button>
-                        <button type="submit" id="saveBtn" class="px-4 py-2 accent rounded flex items-center"
+                        <button type="button" id="saveBtn" class="px-4 py-2 accent rounded flex items-center"
                             aria-label="Save">
                             <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -1033,7 +1010,7 @@
                             Save
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -1196,6 +1173,16 @@
             }
         }
 
+        // Function to extract domain from URL
+        function extractDomain(url) {
+            try {
+                const parsedUrl = new URL(url);
+                return parsedUrl.hostname; // e.g., "example.com"
+            } catch (e) {
+                return url; // Fallback to the input if URL parsing fails
+            }
+        }
+
         // Track previous bookmarks to detect additions
         let previousBookmarks = storage.getBookmarks();
 
@@ -1305,12 +1292,13 @@
                 : filteredBookmarks;
 
             searchedBookmarks.forEach(bookmark => {
-                const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(bookmark.url)}&sz=32`;
+                const domain = extractDomain(bookmark.url);
+                const favicon = `https://api.faviconkit.com/${domain}/32`;
                 const animationClass = addedBookmarkIds.has(bookmark.id) ? 'emerge' : 'slideIn';
                 bookmarkList.innerHTML += `
                     <div class="bookmark-item card border border-theme p-4 rounded bg-theme draggable ${animationClass}" draggable="true" data-id="${bookmark.id}" role="listitem">
                         <div class="flex items-center space-x-3">
-                            <img src="${favicon}" alt="" class="w-6 h-6" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" width=\"24\" height=\"24\"%3E%3Cpath d=\"M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z\"/%3E%3C/svg%3E';">
+                            <img src="${favicon}" alt="" class="w-8 h-8" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" width=\"32\" height=\"32\"%3E%3Cpath d=\"M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z\"/%3E%3C/svg%3E';">
                             <div>
                                 <h3 class="font-semibold text-theme">
                                     <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline">${bookmark.name}</a>
@@ -1360,7 +1348,7 @@
 
         function hideModal() {
             modal.classList.add('hidden');
-            bookmarkForm.reset();
+            document.getElementById('bookmarkForm').reset();
             urlError.classList.add('hidden');
             editingBookmarkId = null;
         }
@@ -1395,7 +1383,7 @@
                 container.addEventListener('dragover', e => {
                     e.preventDefault();
                     const afterElement = getDragAfterElement(container, e.clientY);
-                    const draggable = document.querySelector('.opacity-50');
+                    const draggable = document.querySelector('.draggable.opacity-50');
                     if (afterElement == null) {
                         container.appendChild(draggable);
                     } else {
@@ -1405,33 +1393,74 @@
 
                 container.addEventListener('drop', e => {
                     e.preventDefault();
-                    const draggable = document.querySelector('.opacity-50');
-                    const bookmarkId = draggable.dataset.id;
+                    const newOrder = Array.from(container.children).map(child => child.dataset.id);
                     let bookmarks = storage.getBookmarks();
-                    const bookmark = bookmarks.find(b => b.id === bookmarkId);
-                    bookmarks = bookmarks.filter(b => b.id !== bookmarkId);
-                    const index = Array.from(container.children).indexOf(draggable);
-                    bookmarks.splice(index, 0, bookmark);
-                    storage.saveBookmarks(bookmarks);
+                    const reorderedBookmarks = [];
+                    newOrder.forEach(id => {
+                        const bookmark = bookmarks.find(b => b.id === id);
+                        if (bookmark) reorderedBookmarks.push(bookmark);
+                    });
+                    const remainingBookmarks = bookmarks.filter(b => !newOrder.includes(b.id));
+                    storage.saveBookmarks([...reorderedBookmarks, ...remainingBookmarks]);
                     renderBookmarks(searchBar.value);
                 });
             });
+
+            function getDragAfterElement(container, y) {
+                const draggableElements = [...container.querySelectorAll('.draggable:not(.opacity-50)')];
+                return draggableElements.reduce((closest, child) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if (offset < 0 && offset > closest.offset) {
+                        return { offset: offset, element: child };
+                    } else {
+                        return closest;
+                    }
+                }, { offset: Number.NEGATIVE_INFINITY }).element;
+            }
         }
 
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('.draggable:not(.opacity-50)')];
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
+        // Import and Export
+        function importBookmarks(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.categories || !data.bookmarks) {
+                        alert('Invalid file format. Please ensure the file contains categories and bookmarks.');
+                        return;
+                    }
+
+                    // Validate categories
+                    const categories = data.categories.map(cat => ({
+                        id: cat.id || Date.now().toString() + Math.random(),
+                        name: cat.name || 'Unnamed Category'
+                    }));
+
+                    // Validate bookmarks
+                    const bookmarks = data.bookmarks.map(bm => ({
+                        id: bm.id || Date.now().toString() + Math.random(),
+                        name: bm.name || 'Unnamed Bookmark',
+                        url: validateUrl(bm.url) || 'https://example.com',
+                        category: bm.category || ''
+                    }));
+
+                    storage.saveCategories(categories);
+                    storage.saveBookmarks(bookmarks);
+                    renderCategories();
+                    renderBookmarks();
+                    alert('Bookmarks imported successfully!');
+                } catch (error) {
+                    console.error('Error importing bookmarks:', error);
+                    alert('Failed to import bookmarks. Please ensure the file is a valid JSON.');
                 }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
+            };
+            reader.readAsText(file);
         }
 
-        // Import/Export
         function exportBookmarks() {
             const data = {
                 categories: storage.getCategories(),
@@ -1441,31 +1470,12 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'bookmark-manager.json';
+            a.download = 'bookmarks.json';
             a.click();
             URL.revokeObjectURL(url);
         }
 
-        function importBookmarks(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data.categories) storage.saveCategories(data.categories);
-                    if (data.bookmarks) storage.saveBookmarks(data.bookmarks);
-                    renderCategories();
-                    renderBookmarks();
-                    alert('Bookmarks imported successfully!');
-                } catch (error) {
-                    alert('Error importing bookmarks: Invalid file format');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // Event listeners
+        // Event Listeners
         addCategoryBtn.addEventListener('click', () => {
             showModal('Add Category');
         });
@@ -1476,130 +1486,123 @@
 
         cancelBtn.addEventListener('click', hideModal);
 
-        bookmarkForm.addEventListener('submit', e => {
-            e.preventDefault();
+        saveBtn.addEventListener('click', () => {
             const title = modalTitle.textContent;
+            const name = bookmarkName.value.trim();
+            if (!name) {
+                alert('Name is required');
+                return;
+            }
+
             if (title === 'Add Category') {
-                const categoryName = bookmarkName.value.trim();
-                if (!categoryName) return;
                 const categories = storage.getCategories();
-                const newCategory = {
+                categories.push({
                     id: Date.now().toString(),
-                    name: categoryName
-                };
-                storage.saveCategories([...categories, newCategory]);
+                    name
+                });
+                storage.saveCategories(categories);
                 renderCategories();
                 hideModal();
             } else {
                 let url = bookmarkUrl.value.trim();
-                if (url && !validateUrl(url)) {
+                const category = bookmarkCategory.value;
+                url = validateUrl(url);
+
+                if (!url && title !== 'Edit Category') {
                     urlError.classList.remove('hidden');
                     return;
                 }
                 urlError.classList.add('hidden');
-                if (!url) url = '';
-                if (url && !url.match(/^https?:\/\//)) url = 'https://' + url;
-                const bookmark = {
-                    id: editingBookmarkId || Date.now().toString(),
-                    name: bookmarkName.value.trim(),
-                    url: url,
-                    category: bookmarkCategory.value
-                };
-                const bookmarks = storage.getBookmarks();
+
+                let bookmarks = storage.getBookmarks();
                 if (editingBookmarkId) {
-                    const index = bookmarks.findIndex(b => b.id === editingBookmarkId);
-                    bookmarks[index] = bookmark;
+                    bookmarks = bookmarks.map(b => b.id === editingBookmarkId ? { ...b, name, url, category } : b);
                 } else {
-                    bookmarks.push(bookmark);
+                    bookmarks.push({
+                        id: Date.now().toString(),
+                        name,
+                        url,
+                        category
+                    });
                 }
                 storage.saveBookmarks(bookmarks);
-                renderBookmarks();
+                renderBookmarks(searchBar.value);
                 hideModal();
             }
         });
 
         categoryList.addEventListener('click', e => {
-            const item = e.target.closest('.category-item');
+            const categoryItem = e.target.closest('.category-item');
+            if (categoryItem) {
+                selectedCategory = categoryItem.dataset.id === 'all' ? null : categoryItem.dataset.id;
+                currentCategory.querySelector('span') ? 
+                    currentCategory.querySelector('span').textContent = categoryItem.querySelector('span').textContent :
+                    currentCategory.textContent = categoryItem.querySelector('span').textContent;
+                renderCategories();
+                renderBookmarks(searchBar.value);
+            }
+
             const deleteBtn = e.target.closest('.delete-category');
             if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
-                showConfirmModal('Are you sure you want to delete this category and all its bookmarks?', () => {
-                    let categories = storage.getCategories();
-                    categories = categories.filter(c => c.id !== id);
+                showConfirmModal('Are you sure you want to delete this category and its bookmarks?', () => {
+                    let categories = storage.getCategories().filter(c => c.id !== id);
+                    let bookmarks = storage.getBookmarks().filter(b => b.category !== id);
                     storage.saveCategories(categories);
-                    let bookmarks = storage.getBookmarks();
-                    bookmarks = bookmarks.filter(b => b.category !== id);
                     storage.saveBookmarks(bookmarks);
-                    if (selectedCategory === id) {
-                        selectedCategory = null;
-                        currentCategory.textContent = 'All Bookmarks';
-                    }
+                    if (selectedCategory === id) selectedCategory = null;
                     renderCategories();
-                    renderBookmarks();
+                    renderBookmarks(searchBar.value);
+                    hideConfirmModal();
                 });
-            } else if (item) {
-                selectedCategory = item.dataset.id === 'all' ? null : item.dataset.id;
-                currentCategory.textContent = selectedCategory
-                    ? storage.getCategories().find(c => c.id === selectedCategory).name
-                    : 'All Bookmarks';
-                renderCategories();
-                renderBookmarks();
             }
         });
 
         categoryBar.addEventListener('click', e => {
-            const btn = e.target.closest('.category-btn');
-            if (btn) {
-                selectedCategory = btn.dataset.id === 'all' ? null : btn.dataset.id;
-                currentCategory.textContent = selectedCategory
-                    ? storage.getCategories().find(c => c.id === selectedCategory).name
-                    : 'All Bookmarks';
+            const categoryBtn = e.target.closest('.category-btn');
+            if (categoryBtn) {
+                selectedCategory = categoryBtn.dataset.id === 'all' ? null : categoryBtn.dataset.id;
+                currentCategory.querySelector('span') ? 
+                    currentCategory.querySelector('span').textContent = categoryBtn.textContent.split(' (')[0] :
+                    currentCategory.textContent = categoryBtn.textContent.split(' (')[0];
                 renderCategories();
-                renderBookmarks();
+                renderBookmarks(searchBar.value);
             }
         });
 
         bookmarkList.addEventListener('click', e => {
             const editBtn = e.target.closest('.edit-bookmark');
             const deleteBtn = e.target.closest('.delete-bookmark');
+
             if (editBtn) {
-                editingBookmarkId = editBtn.dataset.id;
-                const bookmark = storage.getBookmarks().find(b => b.id === editingBookmarkId);
+                const id = editBtn.dataset.id;
+                const bookmark = storage.getBookmarks().find(b => b.id === id);
+                editingBookmarkId = id;
                 showModal('Edit Bookmark', bookmark);
-            } else if (deleteBtn) {
+            }
+
+            if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
                 showConfirmModal('Are you sure you want to delete this bookmark?', () => {
-                    const bookmarkItem = bookmarkList.querySelector(`[data-id="${id}"]`);
-                    bookmarkItem.classList.add('dissolve');
-                    setTimeout(() => {
-                        let bookmarks = storage.getBookmarks();
-                        bookmarks = bookmarks.filter(b => b.id !== id);
-                        storage.saveBookmarks(bookmarks);
-                        renderBookmarks();
-                    }, 300);
+                    const bookmarks = storage.getBookmarks().filter(b => b.id !== id);
+                    storage.saveBookmarks(bookmarks);
+                    renderBookmarks(searchBar.value);
+                    hideConfirmModal();
                 });
             }
         });
 
         confirmCancel.addEventListener('click', hideConfirmModal);
-
         confirmDelete.addEventListener('click', () => {
             if (deleteCallback) deleteCallback();
-            hideConfirmModal();
         });
 
-        const debouncedSearch = debounce(() => {
+        searchBar.addEventListener('input', debounce(() => {
             renderBookmarks(searchBar.value);
-        }, 300);
+        }, 300));
 
-        searchBar.addEventListener('input', debouncedSearch);
-
-        importBtn.addEventListener('click', () => {
-            importInput.click();
-        });
-
+        importBtn.addEventListener('click', () => importInput.click());
         importInput.addEventListener('change', importBookmarks);
-
         exportBtn.addEventListener('click', exportBookmarks);
 
         themeToggle.addEventListener('click', () => {
@@ -1616,17 +1619,10 @@
             linkOverlay.style.display = 'none';
         });
 
-        linkOverlay.addEventListener('click', e => {
-            if (e.target === linkOverlay) {
-                linkOverlay.style.display = 'none';
-            }
-        });
-
         // Initialize
-        showLoader();
         renderCategories();
         renderBookmarks();
+        showLoader();
     </script>
 </body>
-
 </html>
