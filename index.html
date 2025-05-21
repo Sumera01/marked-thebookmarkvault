@@ -372,7 +372,7 @@
             }
 
             .bookmark-item h3 {
-                font-size: 0.875rem; /* Increased from 0.75rem to 0.875rem */
+                font-size: 0.875rem;
             }
 
             .bookmark-item a {
@@ -482,7 +482,7 @@
             }
 
             .bookmark-item h3 {
-                font-size: 0.75rem; /* Increased from 0.625rem to 0.75rem */
+                font-size: 0.75rem;
             }
 
             .bookmark-item a {
@@ -765,12 +765,18 @@
         }
 
         .bookmark-item img {
-            width: 1.5rem; /* Increased from 0.75rem to 1.5rem */
-            height: 1.5rem; /* Increased from 0.75rem to 1.5rem */
+            width: 1.5rem;
+            height: 1.5rem;
+            object-fit: contain; /* Ensure proper scaling */
+            background-color: rgba(0, 0, 0, 0.05); /* Subtle background for light theme */
+        }
+
+        .dark .bookmark-item img {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle background for dark theme */
         }
 
         .bookmark-item h3 {
-            font-size: 1rem; /* Increased from 0.875rem to 1rem */
+            font-size: 1rem;
         }
 
         .bookmark-item a {
@@ -778,11 +784,11 @@
         }
 
         .bookmark-item .flex.mt-2 {
-            flex-direction: column; /* Changed to stack vertically */
-            gap: 0.5rem; /* Vertical spacing */
+            flex-direction: column;
+            gap: 0.5rem;
             margin-top: 0;
             flex: 0 0 auto;
-            align-items: flex-end; /* Align buttons to the right */
+            align-items: flex-end;
         }
 
         .edit-bookmark,
@@ -1299,12 +1305,12 @@
                 : filteredBookmarks;
 
             searchedBookmarks.forEach(bookmark => {
-                const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(bookmark.url)}`;
+                const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(bookmark.url)}&sz=32`;
                 const animationClass = addedBookmarkIds.has(bookmark.id) ? 'emerge' : 'slideIn';
                 bookmarkList.innerHTML += `
                     <div class="bookmark-item card border border-theme p-4 rounded bg-theme draggable ${animationClass}" draggable="true" data-id="${bookmark.id}" role="listitem">
                         <div class="flex items-center space-x-3">
-                            <img src="${favicon}" alt="" class="w-6 h-6" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\"/%3E%3C/svg%3E';">
+                            <img src="${favicon}" alt="" class="w-6 h-6" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" width=\"24\" height=\"24\"%3E%3Cpath d=\"M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z\"/%3E%3C/svg%3E';">
                             <div>
                                 <h3 class="font-semibold text-theme">
                                     <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline">${bookmark.name}</a>
