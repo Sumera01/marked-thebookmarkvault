@@ -142,7 +142,7 @@
         }
 
         .icon {
-            width: 1.25rem; /* Reduced from 2rem */
+            width: 1.25rem;
             height: 1.25rem;
         }
 
@@ -410,7 +410,7 @@
             }
 
             .icon {
-                width: 1rem; /* Reduced from 1.5rem */
+                width: 1rem;
                 height: 1rem;
             }
         }
@@ -449,7 +449,7 @@
             }
 
             .icon {
-                width: 0.875rem; /* Reduced from 1.25rem */
+                width: 0.875rem;
                 height: 0.875rem;
             }
 
@@ -508,7 +508,7 @@
 
         @media (min-width: 769px) {
             .icon {
-                width: 1.25rem; /* Reduced from 2rem */
+                width: 1.25rem;
                 height: 1.25rem;
             }
 
@@ -595,7 +595,7 @@
 
         .loader-container {
             position: relative;
-            height: 75px; /* Reduced from 120px (62.5%) */
+            height: 75px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -605,10 +605,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 87.5px; /* Reduced from 140px (62.5%) */
+            width: 87.5px;
             height: 87.5px;
             border-radius: 100%;
-            border: 5.625px solid #DEE1E4; /* Reduced from 9px (62.5%) */
+            border: 5.625px solid #DEE1E4;
             overflow: hidden;
         }
 
@@ -623,10 +623,10 @@
         .loader-container::before {
             content: "";
             position: absolute;
-            top: 131.25px; /* Reduced from 210px (62.5%) */
-            left: 16.25px; /* Reduced from 26px (62.5%) */
-            width: 62.5px; /* Reduced from 100px (62.5%) */
-            height: 20px; /* Reduced from 32px (62.5%) */
+            top: 131.25px;
+            left: 16.25px;
+            width: 62.5px;
+            height: 20px;
             border-radius: 100%;
             background-color: rgba(222, 225, 228, 0.4);
         }
@@ -639,15 +639,15 @@
 
         .loader-span {
             position: relative;
-            left: 70px; /* Reduced from 112px (62.5%) */
-            top: 37.5px; /* Reduced from 60px (62.5%) */
+            left: 70px;
+            top: 37.5px;
         }
 
         .loader-span::before {
             content: "";
             position: absolute;
-            width: 31.25px; /* Reduced from 50px (62.5%) */
-            height: 3.75px; /* Reduced from 6px (62.5%) */
+            width: 31.25px;
+            height: 3.75px;
             background-color: #DEE1E4;
             transform: rotate(45deg);
         }
@@ -655,13 +655,13 @@
         .loader-span::after {
             content: "";
             position: absolute;
-            left: 18.75px; /* Reduced from 30px (62.5%) */
-            top: 12.5px; /* Reduced from 20px (62.5%) */
-            width: 22.5px; /* Reduced from 36px (62.5%) */
-            height: 7.5px; /* Reduced from 12px (62.5%) */
+            left: 18.75px;
+            top: 12.5px;
+            width: 22.5px;
+            height: 7.5px;
             background-color: #DEE1E4;
             transform: rotate(45deg);
-            border-radius: 0 2.5px 2.5px 0; /* Reduced from 4px (62.5%) */
+            border-radius: 0 2.5px 2.5px 0;
         }
 
         .loader-box-1,
@@ -671,8 +671,8 @@
         }
 
         .loader-emoji {
-            font-size: 34px; /* Reduced from 55px (62.5%) */
-            margin: 10px; /* Reduced from 16px (62.5%) */
+            font-size: 34px;
+            margin: 10px;
         }
 
         .white .loader-emoji {
@@ -704,7 +704,7 @@
 
         @keyframes cloud-loop {
             0% {
-                transform: translate(0, 9.375px); /* Reduced from 15px (62.5%) */
+                transform: translate(0, 9.375px);
             }
             100% {
                 transform: translate(0, 0);
@@ -713,7 +713,7 @@
 
         @keyframes shadow-loop {
             0% {
-                transform: translate(0, -21.875px) scale(1.15, 0.25); /* Reduced from -35px (62.5%) */
+                transform: translate(0, -21.875px) scale(1.15, 0.25);
             }
             100% {
                 transform: translate(0, -21.875px) scale(1, 0.25);
@@ -765,7 +765,7 @@
         }
 
         .bookmark-item img {
-            width: 0.75rem; /* Reduced from 1rem */
+            width: 0.75rem;
             height: 0.75rem;
         }
 
@@ -778,9 +778,11 @@
         }
 
         .bookmark-item .flex.mt-2 {
+            flex-direction: column; /* Changed to stack vertically */
+            gap: 0.5rem; /* Vertical spacing */
             margin-top: 0;
             flex: 0 0 auto;
-            gap: 0.5rem;
+            align-items: flex-end; /* Align buttons to the right */
         }
 
         .edit-bookmark,
@@ -861,7 +863,7 @@
         .export-icon,
         .theme-icon,
         .add-category-icon {
-            width: 1.25rem; /* Reduced from 2rem */
+            width: 1.25rem;
             height: 1.25rem;
         }
     </style>
@@ -1308,7 +1310,7 @@
                                 <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline text-sm break-all">${bookmark.url}</a>
                             </div>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="flex mt-2">
                             <button class="edit-bookmark text-theme" data-id="${bookmark.id}" aria-label="Edit bookmark">
                                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
