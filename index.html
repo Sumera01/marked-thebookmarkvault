@@ -2,17 +2,6 @@
 <html lang="en">
 
 <head>
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHBW0XTDDX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LHBW0XTDDX');
-</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookmark Manager</title>
@@ -66,6 +55,18 @@
 
         .bookmark-item {
             animation: slideIn 0.3s ease-out;
+            perspective: 1000px;
+        }
+
+        .bookmark-item:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .bookmark-item:hover {
+                transform: none;
+            }
         }
 
         .category-item {
@@ -77,7 +78,6 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
-
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -89,7 +89,6 @@
                 opacity: 0;
                 transform: translateX(-10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -104,19 +103,47 @@
             0% {
                 transform: scale(1);
             }
-
             50% {
                 transform: scale(1.1);
             }
-
             100% {
                 transform: scale(1);
             }
         }
 
+        .emerge {
+            animation: emerge 0.3s ease-in;
+        }
+
+        @keyframes emerge {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .dissolve {
+            animation: dissolve 0.3s ease-out forwards;
+        }
+
+        @keyframes dissolve {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+
         .icon {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 2rem;
+            height: 2rem;
         }
 
         .white .border-theme {
@@ -195,14 +222,12 @@
             background-color: #f0f0f0;
         }
 
-        /* Desktop layout */
         .sidebar {
             width: 16rem;
             padding: 1rem;
             border-right: 1px solid #000000;
         }
 
-        /* Floating circle */
         #linkCircle {
             position: fixed;
             bottom: 1rem;
@@ -241,7 +266,6 @@
             border-radius: 50%;
         }
 
-        /* Overlay Popup */
         #linkOverlay {
             display: none;
             position: fixed;
@@ -286,7 +310,16 @@
             stroke: #ffffff;
         }
 
-        /* Mobile-friendly media queries */
+        header {
+            padding: 0.75rem;
+        }
+
+        .header-container {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 display: none;
@@ -335,15 +368,15 @@
             }
 
             .bookmark-item {
-                padding: 0.75rem;
+                padding: 0.5rem;
             }
 
             .bookmark-item h3 {
-                font-size: 0.875rem;
+                font-size: 0.75rem;
             }
 
             .bookmark-item a {
-                font-size: 0.75rem;
+                font-size: 0.625rem;
             }
 
             #linkCircle {
@@ -360,6 +393,25 @@
             .category-btn {
                 padding: 0.375rem 0.75rem;
                 font-size: 0.875rem;
+            }
+
+            .header-buttons {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .header-buttons .icon-button {
+                padding: 0.5rem;
+            }
+
+            .icon {
+                width: 1.5rem;
+                height: 1.5rem;
             }
         }
 
@@ -378,16 +430,17 @@
             }
 
             .header-buttons {
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: nowrap;
                 width: 100%;
                 gap: 0.5rem;
                 margin-top: 0.5rem;
+                overflow-x: auto;
+                white-space: nowrap;
             }
 
-            .header-buttons button {
-                width: 100%;
-                padding: 0.5rem;
-                font-size: 0.875rem;
+            .header-buttons .icon-button {
+                padding: 0.375rem;
             }
 
             .search-bar {
@@ -425,15 +478,34 @@
             }
 
             .bookmark-item {
-                padding: 0.5rem;
+                padding: 0.25rem;
             }
 
             .bookmark-item h3 {
-                font-size: 0.75rem;
+                font-size: 0.625rem;
             }
 
             .bookmark-item a {
-                font-size: 0.625rem;
+                font-size: 0.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 0.75rem;
+            }
+
+            .modal-content h3 {
+                font-size: 0.875rem;
+            }
+
+            .modal-content input,
+            .modal-content select {
+                font-size: 0.75rem;
+            }
+
+            .modal-content button {
+                padding: 0.5rem;
+                font-size: 0.75rem;
             }
 
             #linkCircle {
@@ -450,6 +522,28 @@
             .category-btn {
                 padding: 0.25rem 0.5rem;
                 font-size: 0.75rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .header-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .search-bar {
+                width: 300px;
+            }
+
+            .header-buttons {
+                flex-wrap: nowrap;
+                gap: 0.5rem;
             }
         }
 
@@ -496,208 +590,522 @@
         .dark .category-btn:hover {
             background-color: #333333;
         }
+
+        /* Loader Styles (from provided code) */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        .white #loader {
+            background-color: #ffffff;
+        }
+
+        .dark #loader {
+            background-color: #000000;
+        }
+
+        .loader-container {
+            position: relative;
+            height: 120px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .loader-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 140px;
+            height: 140px;
+            border-radius: 100%;
+            border: 9px solid #DEE1E4;
+            overflow: hidden;
+        }
+
+        .white .loader-center {
+            background-color: #ffffff;
+        }
+
+        .dark .loader-center {
+            background-color: #000000;
+        }
+
+        .loader-container::before {
+            content: "";
+            position: absolute;
+            top: 210px;
+            left: 26px;
+            width: 100px;
+            height: 32px;
+            border-radius: 100%;
+            background-color: rgba(222, 225, 228, 0.4);
+        }
+
+        .loader-wrap {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        .loader-span {
+            position: relative;
+            left: 112px;
+            top: 60px;
+        }
+
+        .loader-span::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 6px;
+            background-color: #DEE1E4;
+            transform: rotate(45deg);
+        }
+
+        .loader-span::after {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 20px;
+            width: 36px;
+            height: 12px;
+            background-color: #DEE1E4;
+            transform: rotate(45deg);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .loader-box-1,
+        .loader-box-2 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .loader-emoji {
+            font-size: 55px;
+            margin: 16px;
+        }
+
+        .white .loader-emoji {
+            color: #000000;
+        }
+
+        .dark .loader-emoji {
+            color: #ffffff;
+        }
+
+        /* Loader Animations (from provided code) */
+        @keyframes rowup-1 {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(50%, 0, 0);
+            }
+        }
+
+        @keyframes rowup-2 {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(50%, 0, 0);
+            }
+        }
+
+        @keyframes cloud-loop {
+            0% {
+                transform: translate(0, 15px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes shadow-loop {
+            0% {
+                transform: translate(0, -35px) scale(1.15, 0.25);
+            }
+            100% {
+                transform: translate(0, -35px) scale(1, 0.25);
+            }
+        }
+
+        .loader-box-1 {
+            animation: 1s rowup-1 linear infinite normal;
+        }
+
+        .loader-box-2 {
+            animation: 1s rowup-2 linear infinite normal;
+        }
+
+        .loader-center {
+            animation-name: cloud-loop;
+            animation-duration: 0.7s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease;
+            animation-direction: alternate;
+        }
+
+        .loader-span {
+            animation-name: cloud-loop;
+            animation-duration: 0.7s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease;
+            animation-direction: alternate;
+        }
+
+        .loader-container::before {
+            animation-name: shadow-loop;
+            animation-duration: 0.7s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease;
+            animation-direction: alternate;
+        }
+
+        .bookmark-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem;
+        }
+
+        .bookmark-item .flex.items-center.space-x-3 {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .bookmark-item img {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .bookmark-item h3 {
+            font-size: 0.875rem;
+        }
+
+        .bookmark-item a {
+            font-size: 0.75rem;
+        }
+
+        .bookmark-item .flex.mt-2 {
+            margin-top: 0;
+            flex: 0 0 auto;
+            gap: 0.5rem;
+        }
+
+        .edit-bookmark,
+        .delete-bookmark {
+            color: inherit;
+        }
+
+        .white .edit-bookmark,
+        .white .delete-bookmark {
+            color: #000000;
+        }
+
+        .dark .edit-bookmark,
+        .dark .delete-bookmark {
+            color: #ffffff;
+        }
+
+        .edit-bookmark:hover,
+        .delete-bookmark:hover {
+            color: inherit;
+        }
+
+        .white .edit-bookmark:hover,
+        .white .delete-bookmark:hover {
+            color: #000000;
+        }
+
+        .dark .edit-bookmark:hover,
+        .dark .delete-bookmark:hover {
+            color: #ffffff;
+        }
+
+        .search-icon {
+            animation: fadeOut 0.5s ease forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        #main-content {
+            opacity: 0;
+            display: block;
+            transition: opacity 0.5s ease;
+        }
+
+        #main-content.loaded {
+            opacity: 1;
+        }
+
+        .icon-button-group {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .icon-button {
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .icon-button svg {
+            margin: 0;
+        }
+
+        .import-icon,
+        .export-icon,
+        .theme-icon,
+        .add-category-icon {
+            width: 2rem;
+            height: 2rem;
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex flex-col white">
-    <header class="p-4 bg-theme border-b border-theme sticky top-0 z-10">
-        <div class="container mx-auto flex justify-between items-center header-container">
-            <div class="flex items-center space-x-4">
-                <h1 class="text-2xl font-bold flex items-center text-theme header-title">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    Marked - The Bookmark Vault
-                </h1>
-            </div>
-            <div class="flex items-center space-x-4 header-buttons">
-                <div class="relative">
-                    <input type="text" id="searchBar"
-                        class="pl-10 pr-3 py-2 border border-theme rounded-lg w-64 bg-input text-theme search-bar"
-                        placeholder="Search bookmarks..." aria-label="Search bookmarks">
-                    <svg class="icon absolute left-3 top-1/2 -translate-y-1/2 text-theme" fill="none" stroke="currentColor" viewBox="0 0 24 24" margin-top="5px">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-4-4m0 0a6 6 0 10-8.485-8.485A6 6 0 0011 11z" />
-                    </svg>
+    <div id="loader" class="fixed inset-0 flex items-center justify-center z-3000">
+        <div class="loader-container">
+            <span class="loader-span"></span>
+            <div class="loader-center">
+                <div class="loader-wrap">
+                    <div class="loader-box-1 box">
+                        <span class="loader-emoji">📑</span>
+                        <span class="loader-emoji">📑</span>
+                    </div>
+                    <div class="loader-box-2 box">
+                        <span class="loader-emoji">📑</span>
+                        <span class="loader-emoji">📑</span>
+                    </div>
                 </div>
-                <button id="importBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
-                    aria-label="Import bookmarks">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                    </svg>
-                    Import
-                </button>
-                <button id="exportBtn" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
-                    aria-label="Export bookmarks">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0L8 12m4 4V4" />
-                    </svg>
-                    Export
-                </button>
-                <button id="themeToggle" class="p-2 bg-secondary rounded text-theme" aria-label="Toggle theme">
-                    <svg id="themeIcon" class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                </button>
-                <button id="addCategoryBtn" class="px-4 py-2 accent rounded flex items-center"
-                    aria-label="Add category">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Add Category
-                </button>
             </div>
         </div>
-    </header>
-
-    <div class="flex flex-1 container mx-auto">
-        <aside id="sidebar" class="sidebar w-64 p-4 border-r border-theme bg-theme">
-            <h2 class="text-lg font-semibold mb-4 flex items-center text-theme">
-                <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                </svg>
-                Categories
-            </h2>
-            <ul id="categoryList" class="space-y-2"></ul>
-        </aside>
-
-        <main class="flex-1 p-4">
-            <div id="categoryBar" class="category-bar mb-4"></div>
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="currentCategory" class="text-xl font-semibold flex items-center text-theme">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    All Bookmarks
-                </h2>
-                <button id="addBookmarkBtn" class="px-4 py-2 accent rounded flex items-center"
-                    aria-label="Add bookmark">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Add Bookmark
-                </button>
-            </div>
-            <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bookmark-list"
-                role="list"></div>
-        </main>
     </div>
 
-    <!-- Modal for adding/editing -->
-    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center"
-        role="dialog" aria-modal="true">
-        <div class="bg-theme p-6 rounded-lg w-96 modal modal-content">
-            <h3 id="modalTitle" class="text-lg font-semibold mb-4 flex items-center text-theme">
-                <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                </svg>
-                <span></span>
-            </h3>
-            <form id="bookmarkForm">
-                <div class="mb-4">
-                    <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkName">Name</label>
-                    <input type="text" id="bookmarkName"
-                        class="w-full border border-theme p-2 rounded bg-input text-theme" required
-                        aria-required="true">
+    <div id="main-content">
+        <header class="p-4 bg-theme border-b border-theme sticky top-0 z-10">
+            <div class="container mx-auto flex justify-between items-center header-container">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold flex items-center text-theme header-title">
+                        <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Marked - The Bookmark Vault
+                    </h1>
                 </div>
-                <div class="mb-4" id="urlInput">
-                    <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkUrl">URL</label>
-                    <input type="text" id="bookmarkUrl"
-                        class="w-full border border-theme p-2 rounded bg-input text-theme"
-                        placeholder="https://example.com" aria-required="true">
-                    <p id="urlError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid URL</p>
+                <div class="flex items-center space-x-4 header-buttons">
+                    <div class="relative search-container">
+                        <input type="text" id="searchBar"
+                            class="pl-10 pr-3 py-2 border border-theme rounded-lg w-full bg-input text-theme search-bar"
+                            placeholder="Search bookmarks..." aria-label="Search bookmarks">
+                        <svg class="icon search-icon absolute left-3 top-1/2 -translate-y-1/2 text-theme" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 15l-4-4m0 0a6 6 0 10-8.485-8.485A6 6 0 0011 11z" />
+                        </svg>
+                    </div>
+                    <div class="icon-button-group">
+                        <button id="importBtn" class="icon-button bg-secondary rounded text-theme"
+                            aria-label="Import bookmarks">
+                            <svg class="icon import-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                        </button>
+                        <button id="exportBtn" class="icon-button bg-secondary rounded text-theme"
+                            aria-label="Export bookmarks">
+                            <svg class="icon export-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0L8 12m4 4V4" />
+                            </svg>
+                        </button>
+                        <button id="themeToggle" class="icon-button bg-secondary rounded text-theme"
+                            aria-label="Toggle theme">
+                            <svg id="themeIcon" class="icon theme-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </button>
+                        <button id="addCategoryBtn" class="icon-button accent rounded"
+                            aria-label="Add category">
+                            <svg class="icon add-category-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div class="mb-4" id="categorySelect">
-                    <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkCategory">Category</label>
-                    <select id="bookmarkCategory" class="w-full border border-theme p-2 rounded bg-input text-theme">
-                        <!-- Categories will be populated dynamically -->
-                    </select>
+            </div>
+        </header>
+
+        <div class="flex flex-1 container mx-auto">
+            <aside id="sidebar" class="sidebar w-64 p-4 border-r border-theme bg-theme">
+                <h2 class="text-lg font-semibold mb-4 flex items-center text-theme">
+                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                    </svg>
+                    Categories
+                </h2>
+                <ul id="categoryList" class="space-y-2"></ul>
+            </aside>
+
+            <main class="flex-1 p-4">
+                <div id="categoryBar" class="category-bar mb-4"></div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 id="currentCategory" class="text-xl font-semibold flex items-center text-theme">
+                        <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        All Bookmarks
+                    </h2>
+                    <button id="addBookmarkBtn" class="px-4 py-2 accent rounded flex items-center"
+                        aria-label="Add bookmark">
+                        <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add Bookmark
+                    </button>
                 </div>
+                <div id="bookmarkList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bookmark-list"
+                    role="list"></div>
+            </main>
+        </div>
+
+        <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center"
+            role="dialog" aria-modal="true">
+            <div class="bg-theme p-6 rounded-lg w-96 modal modal-content">
+                <h3 id="modalTitle" class="text-lg font-semibold mb-4 flex items-center text-theme">
+                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                    <span></span>
+                </h3>
+                <form id="bookmarkForm">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkName">Name</label>
+                        <input type="text" id="bookmarkName"
+                            class="w-full border border-theme p-2 rounded bg-input text-theme" required
+                            aria-required="true">
+                    </div>
+                    <div class="mb-4" id="urlInput">
+                        <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkUrl">URL</label>
+                        <input type="text" id="bookmarkUrl"
+                            class="w-full border border-theme p-2 rounded bg-input text-theme"
+                            placeholder="https://example.com" aria-required="true">
+                        <p id="urlError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid URL</p>
+                    </div>
+                    <div class="mb-4" id="categorySelect">
+                        <label class="block text-sm font-medium mb-1 text-theme" for="bookmarkCategory">Category</label>
+                        <select id="bookmarkCategory" class="w-full border border-theme p-2 rounded bg-input text-theme">
+                            <!-- Categories will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="flex justify-end space-x-2">
+                        <button type="button" id="cancelBtn"
+                            class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Cancel">
+                            <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Cancel
+                        </button>
+                        <button type="submit" id="saveBtn" class="px-4 py-2 accent rounded flex items-center"
+                            aria-label="Save">
+                            <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center"
+            role="dialog" aria-modal="true">
+            <div class="bg-theme p-6 rounded-lg w-80 modal modal-content">
+                <h3 class="text-lg font-semibold mb-4 flex items-center text-theme">
+                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Confirm Delete
+                </h3>
+                <p id="confirmMessage" class="mb-4 text-theme"></p>
                 <div class="flex justify-end space-x-2">
-                    <button type="button" id="cancelBtn"
-                        class="px-4 py-2 bg-secondary rounded flex items-center text-theme" aria-label="Cancel">
+                    <button id="confirmCancel" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
+                        aria-label="Cancel">
                         <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18L18 6M6 6l12 12" />
                         </svg>
                         Cancel
                     </button>
-                    <button type="submit" id="saveBtn" class="px-4 py-2 accent rounded flex items-center"
-                        aria-label="Save">
+                    <button id="confirmDelete" class="px-4 py-2 accent rounded flex items-center" aria-label="Delete">
                         <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4" />
                         </svg>
-                        Save
+                        Delete
                     </button>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Confirmation Dialog -->
-    <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center"
-        role="dialog" aria-modal="true">
-        <div class="bg-theme p-6 rounded-lg w-80 modal modal-content">
-            <h3 class="text-lg font-semibold mb-4 flex items-center text-theme">
-                <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Confirm Delete
-            </h3>
-            <p id="confirmMessage" class="mb-4 text-theme"></p>
-            <div class="flex justify-end space-x-2">
-                <button id="confirmCancel" class="px-4 py-2 bg-secondary rounded flex items-center text-theme"
-                    aria-label="Cancel">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    Cancel
-                </button>
-                <button id="confirmDelete" class="px-4 py-2 accent rounded flex items-center" aria-label="Delete">
-                    <svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4" />
-                    </svg>
-                    Delete
-                </button>
             </div>
         </div>
-    </div>
 
-    <input type="file" id="importInput" class="hidden" accept=".json">
+        <input type="file" id="importInput" class="hidden" accept=".json">
 
-    <div id="linkCircle" aria-label="Open links overlay">
-        <img src="1.png" alt="Links" class="w-full h-full object-cover rounded-full">
-    </div>
-    <div id="linkOverlay"
-        class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-2000">
-        <div id="linkOverlayContent" class="bg-white p-6 rounded-lg w-90% max-w-24rem relative shadow-lg dark:bg-black">
-            <button id="linkOverlayClose"
-                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h2 class="text-xl font-bold mb-4 text-gray-500">Connect</h2>
-            <ul class="mb-6 space-y-2">
-                <li><a href="mailto:hisums11@gmail.com"
-                        class="text-blue-600 hover:underline dark:text-blue-400">Email</a></li>
-                <li><a href="https://www.linkedin.com/in/sumera-shaikh0110/"
-                        class="text-blue-600 hover:underline dark:text-blue-400" target="_blank">LinkedIn</a></li>
-                <li><a href="https://codolio.com/profile/sumera01" class="text-blue-600 hover:underline dark:text-blue-400"
-                        target="_blank">Codolio</a></li>
-            </ul>
-            <h2 class="text-xl font-bold mb-4 text-gray-500">About Me</h2>
-            <p class="text-gray-700 dark:text-gray-300">Hello! I’m passionate about technology, creative problem-solving, and building efficient digital tools, with experience in web development, UX design, and crafting engaging content. Whether it’s brainstorming a cool project (like a bookmark vault!) or optimizing workflows, I love turning ideas into reality. Feel free to reach out for collaborations or just to chat!</p>
+        <div id="linkCircle" aria-label="Open links overlay">
+            <img src="1.png" alt="Links" class="w-full h-full object-cover rounded-full">
+        </div>
+        <div id="linkOverlay"
+            class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-2000">
+            <div id="linkOverlayContent" class="bg-white p-6 rounded-lg w-90% max-w-24rem relative shadow-lg dark:bg-black">
+                <button id="linkOverlayClose"
+                    class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h2 class="text-xl font-bold mb-4 text-black dark:text-white">Connect</h2>
+                <ul class="mb-6 space-y-2">
+                    <li><a href="mailto:your.email@example.com"
+                            class="text-blue-600 hover:underline dark:text-blue-400">Email</a></li>
+                    <li><a href="https://www.linkedin.com/in/your-profile"
+                            class="text-blue-600 hover:underline dark:text-blue-400" target="_blank">LinkedIn</a></li>
+                    <li><a href="https://your-website.com" class="text-blue-600 hover:underline dark:text-blue-400"
+                            target="_blank">Website</a></li>
+                </ul>
+                <h2 class="text-xl font-bold mb-4 text-black dark:text-white">About Me</h2>
+                <p class="text-gray-700 dark:text-gray-300">Hello! I’m passionate about [your interests], with experience in
+                    [your skills/experience]. Feel free to reach out for collaborations or just to chat!</p>
+            </div>
         </div>
     </div>
 
@@ -725,6 +1133,8 @@
         };
 
         // DOM elements
+        const loader = document.getElementById('loader');
+        const mainContent = document.getElementById('main-content');
         const categoryList = document.getElementById('categoryList');
         const categoryBar = document.getElementById('categoryBar');
         const bookmarkList = document.getElementById('bookmarkList');
@@ -797,6 +1207,39 @@
             }
         }
 
+        // Track previous bookmarks to detect additions
+        let previousBookmarks = storage.getBookmarks();
+
+        // Loader handling
+        function showLoader() {
+            try {
+                loader.style.display = 'flex';
+                mainContent.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    mainContent.style.opacity = '1';
+                    mainContent.classList.add('loaded');
+                }, 3000); // Hide after 3 seconds
+
+                // Fallback timeout
+                setTimeout(() => {
+                    if (loader.style.display !== 'none') {
+                        loader.style.display = 'none';
+                        mainContent.style.display = 'block';
+                        mainContent.style.opacity = '1';
+                        mainContent.classList.add('loaded');
+                    }
+                }, 5000); // Fallback after 5 seconds
+            } catch (error) {
+                console.error('Error in showLoader:', error);
+                loader.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.style.opacity = '1';
+                mainContent.classList.add('loaded');
+            }
+        }
+
         // Render functions
         function renderCategories() {
             const categories = storage.getCategories();
@@ -856,6 +1299,11 @@
             const bookmarks = storage.getBookmarks();
             const theme = storage.getTheme();
             const faviconColor = theme === 'white' ? '#000000' : '#ffffff';
+
+            // Detect added bookmarks by comparing with previous state
+            const addedBookmarks = bookmarks.filter(b => !previousBookmarks.some(pb => pb.id === b.id));
+            const addedBookmarkIds = new Set(addedBookmarks.map(b => b.id));
+
             bookmarkList.innerHTML = '';
             const filteredBookmarks = selectedCategory
                 ? bookmarks.filter(b => b.category === selectedCategory)
@@ -869,22 +1317,23 @@
 
             searchedBookmarks.forEach(bookmark => {
                 const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(bookmark.url)}`;
+                const animationClass = addedBookmarkIds.has(bookmark.id) ? 'emerge' : 'slideIn';
                 bookmarkList.innerHTML += `
-                    <div class="bookmark-item card border border-theme p-4 rounded bg-theme draggable" draggable="true" data-id="${bookmark.id}" role="listitem">
+                    <div class="bookmark-item card border border-theme p-4 rounded bg-theme draggable ${animationClass}" draggable="true" data-id="${bookmark.id}" role="listitem">
                         <div class="flex items-center space-x-3">
-                            <img src="${favicon}" alt="" class="w-5 h-5" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"%3E%3Cpath fill=\"${encodeURIComponent(faviconColor)}\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\"/%3E%3C/svg%3E';">
+                            <img src="${favicon}" alt="" class="w-5 h-5" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\"/%3E%3C/svg%3E';">
                             <div>
                                 <h3 class="font-semibold text-theme">${bookmark.name}</h3>
                                 <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline text-sm break-all">${bookmark.url}</a>
                             </div>
                         </div>
-                        <div class="mt-2 flex justify-between">
-                            <button class="text-blue-600 hover:text-blue-800 edit-bookmark text-theme" data-id="${bookmark.id}" aria-label="Edit bookmark">
+                        <div class="flex justify-between">
+                            <button class="edit-bookmark text-theme" data-id="${bookmark.id}" aria-label="Edit bookmark">
                                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                 </svg>
                             </button>
-                            <button class="text-red-500 hover:text-red-700 delete-bookmark" data-id="${bookmark.id}" aria-label="Delete bookmark">
+                            <button class="delete-bookmark text-theme" data-id="${bookmark.id}" aria-label="Delete bookmark">
                                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4"/>
                                 </svg>
@@ -892,6 +1341,9 @@
                         </div>
                     </div>`;
             });
+
+            // Update previous bookmarks for the next render
+            previousBookmarks = [...bookmarks];
 
             setupDragAndDrop();
         }
@@ -1015,139 +1467,93 @@
                     if (data.bookmarks) storage.saveBookmarks(data.bookmarks);
                     renderCategories();
                     renderBookmarks();
-                } catch {
-                    alert('Invalid JSON file');
+                    alert('Bookmarks imported successfully!');
+                } catch (error) {
+                    alert('Error importing bookmarks: Invalid file format');
                 }
             };
             reader.readAsText(file);
         }
 
-        // Overlay handling
-        function toggleLinkOverlay() {
-            linkOverlay.style.display = linkOverlay.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        linkCircle.addEventListener('click', e => {
-            e.stopPropagation();
-            toggleLinkOverlay();
-        });
-
-        linkOverlayClose.addEventListener('click', e => {
-            toggleLinkOverlay();
-        });
-
-        document.addEventListener('click', e => {
-            if (linkOverlay.style.display === 'flex' && !linkOverlayContent.contains(e.target) && e.target !== linkCircle) {
-                toggleLinkOverlay();
-            }
-        });
-
-        // Event handlers
-        addCategoryBtn.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
+        // Event listeners
+        addCategoryBtn.addEventListener('click', () => {
             showModal('Add Category');
         });
 
-        addBookmarkBtn.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
+        addBookmarkBtn.addEventListener('click', () => {
             showModal('Add Bookmark');
         });
 
-        cancelBtn.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
-            hideModal();
-        });
-
-        saveBtn.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
-        });
+        cancelBtn.addEventListener('click', hideModal);
 
         bookmarkForm.addEventListener('submit', e => {
             e.preventDefault();
-
-            if (modalTitle.textContent !== 'Add Category') {
-                let url = bookmarkUrl.value.trim();
-                const validatedUrl = validateUrl(url);
-                if (!validatedUrl) {
-                    urlError.classList.remove('hidden');
-                    return;
-                }
-                url = validatedUrl;
-                urlError.classList.add('hidden');
-
-                const bookmarks = storage.getBookmarks();
-                const bookmarkData = {
-                    id: editingBookmarkId || Date.now().toString(),
-                    name: bookmarkName.value.trim(),
-                    url: url,
-                    category: bookmarkCategory.value || ''
-                };
-
-                if (bookmarkData.name && bookmarkData.url) {
-                    if (editingBookmarkId) {
-                        const index = bookmarks.findIndex(b => b.id === editingBookmarkId);
-                        bookmarks[index] = bookmarkData;
-                    } else {
-                        bookmarks.push(bookmarkData);
-                    }
-                    storage.saveBookmarks(bookmarks);
-                }
-            } else {
+            const title = modalTitle.textContent;
+            if (title === 'Add Category') {
+                const categoryName = bookmarkName.value.trim();
+                if (!categoryName) return;
                 const categories = storage.getCategories();
                 const newCategory = {
                     id: Date.now().toString(),
-                    name: bookmarkName.value.trim(),
-                    color: '#808080' // Fixed grey color
+                    name: categoryName
                 };
-                if (newCategory.name) {
-                    categories.push(newCategory);
-                    storage.saveCategories(categories);
+                storage.saveCategories([...categories, newCategory]);
+                renderCategories();
+                hideModal();
+            } else {
+                let url = bookmarkUrl.value.trim();
+                if (url && !validateUrl(url)) {
+                    urlError.classList.remove('hidden');
+                    return;
                 }
+                urlError.classList.add('hidden');
+                if (!url) url = '';
+                if (url && !url.match(/^https?:\/\//)) url = 'https://' + url;
+                const bookmark = {
+                    id: editingBookmarkId || Date.now().toString(),
+                    name: bookmarkName.value.trim(),
+                    url: url,
+                    category: bookmarkCategory.value
+                };
+                const bookmarks = storage.getBookmarks();
+                if (editingBookmarkId) {
+                    const index = bookmarks.findIndex(b => b.id === editingBookmarkId);
+                    bookmarks[index] = bookmark;
+                } else {
+                    bookmarks.push(bookmark);
+                }
+                storage.saveBookmarks(bookmarks);
+                renderBookmarks();
+                hideModal();
             }
-
-            hideModal();
-            renderCategories();
-            renderBookmarks(searchBar.value);
-        });
-
-        bookmarkUrl.addEventListener('input', () => {
-            const validatedUrl = validateUrl(bookmarkUrl.value.trim());
-            urlError.classList.toggle('hidden', validatedUrl);
         });
 
         categoryList.addEventListener('click', e => {
-            const categoryItem = e.target.closest('li');
+            const item = e.target.closest('.category-item');
             const deleteBtn = e.target.closest('.delete-category');
-
             if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
-                showConfirmModal('Are you sure you want to delete this category and its bookmarks?', () => {
+                showConfirmModal('Are you sure you want to delete this category and all its bookmarks?', () => {
                     let categories = storage.getCategories();
                     categories = categories.filter(c => c.id !== id);
                     storage.saveCategories(categories);
-
                     let bookmarks = storage.getBookmarks();
                     bookmarks = bookmarks.filter(b => b.category !== id);
                     storage.saveBookmarks(bookmarks);
-
-                    if (selectedCategory === id) selectedCategory = null;
+                    if (selectedCategory === id) {
+                        selectedCategory = null;
+                        currentCategory.textContent = 'All Bookmarks';
+                    }
                     renderCategories();
-                    renderBookmarks(searchBar.value);
+                    renderBookmarks();
                 });
-                return;
-            }
-
-            if (categoryItem) {
-                selectedCategory = categoryItem.dataset.id === 'all' ? null : categoryItem.dataset.id;
-                currentCategory.innerHTML = selectedCategory
-                    ? `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">${storage.getCategories().find(c => c.id === selectedCategory).name}</span>`
-                    : `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">All Bookmarks</span>`;
-                renderBookmarks(searchBar.value);
+            } else if (item) {
+                selectedCategory = item.dataset.id === 'all' ? null : item.dataset.id;
+                currentCategory.textContent = selectedCategory
+                    ? storage.getCategories().find(c => c.id === selectedCategory).name
+                    : 'All Bookmarks';
                 renderCategories();
+                renderBookmarks();
             }
         });
 
@@ -1155,86 +1561,79 @@
             const btn = e.target.closest('.category-btn');
             if (btn) {
                 selectedCategory = btn.dataset.id === 'all' ? null : btn.dataset.id;
-                currentCategory.innerHTML = selectedCategory
-                    ? `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">${storage.getCategories().find(c => c.id === selectedCategory).name}</span>`
-                    : `<svg class="icon mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span class="text-theme">All Bookmarks</span>`;
-                renderBookmarks(searchBar.value);
+                currentCategory.textContent = selectedCategory
+                    ? storage.getCategories().find(c => c.id === selectedCategory).name
+                    : 'All Bookmarks';
                 renderCategories();
+                renderBookmarks();
             }
         });
 
         bookmarkList.addEventListener('click', e => {
             const editBtn = e.target.closest('.edit-bookmark');
             const deleteBtn = e.target.closest('.delete-bookmark');
-
             if (editBtn) {
                 editingBookmarkId = editBtn.dataset.id;
                 const bookmark = storage.getBookmarks().find(b => b.id === editingBookmarkId);
                 showModal('Edit Bookmark', bookmark);
-            }
-
-            if (deleteBtn) {
+            } else if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
                 showConfirmModal('Are you sure you want to delete this bookmark?', () => {
-                    let bookmarks = storage.getBookmarks();
-                    bookmarks = bookmarks.filter(b => b.id !== id);
-                    storage.saveBookmarks(bookmarks);
-                    renderBookmarks(searchBar.value);
+                    const bookmarkItem = bookmarkList.querySelector(`[data-id="${id}"]`);
+                    bookmarkItem.classList.add('dissolve');
+                    setTimeout(() => {
+                        let bookmarks = storage.getBookmarks();
+                        bookmarks = bookmarks.filter(b => b.id !== id);
+                        storage.saveBookmarks(bookmarks);
+                        renderBookmarks();
+                    }, 300);
                 });
             }
         });
 
-        searchBar.addEventListener('input', debounce(e => {
-            renderBookmarks(e.target.value);
-        }, 300));
+        confirmCancel.addEventListener('click', hideConfirmModal);
 
-        importBtn.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
+        confirmDelete.addEventListener('click', () => {
+            if (deleteCallback) deleteCallback();
+            hideConfirmModal();
+        });
+
+        const debouncedSearch = debounce(() => {
+            renderBookmarks(searchBar.value);
+        }, 300);
+
+        searchBar.addEventListener('input', debouncedSearch);
+
+        importBtn.addEventListener('click', () => {
             importInput.click();
         });
 
         importInput.addEventListener('change', importBookmarks);
 
-        exportBtn.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
-            exportBookmarks();
+        exportBtn.addEventListener('click', exportBookmarks);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = storage.getTheme();
+            setTheme(currentTheme === 'white' ? 'dark' : 'white');
+            renderBookmarks(searchBar.value);
         });
 
-        confirmCancel.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
-            hideConfirmModal();
+        linkCircle.addEventListener('click', () => {
+            linkOverlay.style.display = 'flex';
         });
 
-        confirmDelete.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
-            if (deleteCallback) deleteCallback();
-            hideConfirmModal();
+        linkOverlayClose.addEventListener('click', () => {
+            linkOverlay.style.display = 'none';
         });
 
-        themeToggle.addEventListener('click', e => {
-            e.target.closest('button').classList.add('bounce');
-            setTimeout(() => e.target.closest('button').classList.remove('bounce'), 200);
-            setTheme(storage.getTheme() === 'white' ? 'dark' : 'white');
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                if (!modal.classList.contains('hidden')) hideModal();
-                if (!confirmModal.classList.contains('hidden')) hideConfirmModal();
-                if (linkOverlay.style.display === 'flex') toggleLinkOverlay();
-            }
-            if (e.ctrlKey && e.key === 'f') {
-                e.preventDefault();
-                searchBar.focus();
+        linkOverlay.addEventListener('click', e => {
+            if (e.target === linkOverlay) {
+                linkOverlay.style.display = 'none';
             }
         });
 
-        // Initial render
+        // Initialize
+        showLoader();
         renderCategories();
         renderBookmarks();
     </script>
