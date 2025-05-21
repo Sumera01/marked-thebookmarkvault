@@ -743,14 +743,15 @@
         }
 
         .bookmark-item img {
-            width: 2rem; /* Increased to 32px (from 1.5rem) */
-            height: 2rem; /* Increased to 32px (from 1.5rem) */
-            object-fit: contain; /* Ensure proper scaling */
-            background-color: rgba(0, 0, 0, 0.05); /* Subtle background for light theme */
+            width: 2rem; /* 32px */
+            height: 2rem; /* 32px */
+            object-fit: contain;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
         }
 
         .dark .bookmark-item img {
-            background-color: rgba(255, 255, 255, 0.1); /* Subtle background for dark theme */
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .bookmark-item h3 {
@@ -1173,13 +1174,19 @@
             }
         }
 
-        // Function to extract domain from URL
+        // Improved domain extraction function
         function extractDomain(url) {
             try {
                 const parsedUrl = new URL(url);
-                return parsedUrl.hostname; // e.g., "example.com"
+                let hostname = parsedUrl.hostname;
+                // Remove 'www.' prefix if present
+                if (hostname.startsWith('www.')) {
+                    hostname = hostname.slice(4);
+                }
+                return hostname || 'example.com'; // Fallback to a default domain
             } catch (e) {
-                return url; // Fallback to the input if URL parsing fails
+                console.warn('Invalid URL for favicon extraction:', url, e);
+                return 'example.com'; // Fallback to a default domain
             }
         }
 
@@ -1298,9 +1305,9 @@
                 bookmarkList.innerHTML += `
                     <div class="bookmark-item card border border-theme p-4 rounded bg-theme draggable ${animationClass}" draggable="true" data-id="${bookmark.id}" role="listitem">
                         <div class="flex items-center space-x-3">
-                            <img src="${favicon}" alt="" class="w-8 h-8" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" width=\"32\" height=\"32\"%3E%3Cpath d=\"M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z\"/%3E%3C/svg%3E';">
-                            <div>
-                                <h3 class="font-semibold text-theme">
+                            <img src="${favicon}" alt="${bookmark.name} favicon" class="w-8 h-8" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" width=\"32\" height=\"32\"%3E%3Cpath d=\"M17 3H7a2 2 0 00-2 2v16l7-3 7 3V5a2 2 0 00-2-2z\"/%3E%3C/svg%3E';">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-semibold text-theme truncate">
                                     <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline">${bookmark.name}</a>
                                 </h3>
                             </div>
