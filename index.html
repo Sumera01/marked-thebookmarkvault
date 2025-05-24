@@ -372,16 +372,16 @@
             }
 
             .bookmark-item h3 {
-                font-size: 1rem;
+                font-size: 1rem; /* Increased from 0.875rem to 1rem */
             }
 
             .bookmark-item a {
-                font-size: 0.75rem;
+                font-size: 0.75rem; /* Increased from 0.625rem to 0.75rem */
             }
 
             .bookmark-item img {
-                width: 1.5rem;
-                height: 1.5rem;
+                width: 1.5rem; /* Increased from 0.75rem to 1.5rem */
+                height: 1.5rem; /* Increased from 0.75rem to 1.5rem */
             }
 
             #linkCircle {
@@ -487,16 +487,16 @@
             }
 
             .bookmark-item h3 {
-                font-size: 0.875rem;
+                font-size: 0.875rem; /* Increased from 0.75rem to 0.875rem */
             }
 
             .bookmark-item a {
-                font-size: 0.625rem;
+                font-size: 0.625rem; /* Increased from 0.5rem to 0.625rem */
             }
 
             .bookmark-item img {
-                width: 1.25rem;
-                height: 1.25rem;
+                width: 1.25rem; /* Increased from 0.75rem to 1.25rem */
+                height: 1.25rem; /* Increased from 0.75rem to 1.25rem */
             }
 
             #linkCircle {
@@ -775,25 +775,24 @@
         }
 
         .bookmark-item img {
-            width: 2rem;
-            height: 2rem;
-            object-fit: contain; /* Ensure favicon scales properly */
+            width: 2rem; /* Increased from 1.5rem to 2rem */
+            height: 2rem; /* Increased from 1.5rem to 2rem */
         }
 
         .bookmark-item h3 {
-            font-size: 1.25rem;
+            font-size: 1.25rem; /* Increased from 1rem to 1.25rem */
         }
 
         .bookmark-item a {
-            font-size: 0.875rem;
+            font-size: 0.875rem; /* Increased from 0.75rem to 0.875rem */
         }
 
         .bookmark-item .flex.mt-2 {
-            flex-direction: column;
-            gap: 0.5rem;
+            flex-direction: column; /* Changed to stack vertically */
+            gap: 0.5rem; /* Vertical spacing */
             margin-top: 0;
             flex: 0 0 auto;
-            align-items: flex-end;
+            align-items: flex-end; /* Align buttons to the right */
         }
 
         .edit-bookmark,
@@ -1310,13 +1309,12 @@
                 : filteredBookmarks;
 
             searchedBookmarks.forEach(bookmark => {
-                const domain = bookmark.url.replace(/^https?:\/\//, '').split('/')[0];
-                const favicon = `https://api.faviconkit.com/${encodeURIComponent(domain)}/32`;
+                const favicon = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(bookmark.url)}`;
                 const animationClass = addedBookmarkIds.has(bookmark.id) ? 'emerge' : 'slideIn';
                 bookmarkList.innerHTML += `
                     <div class="bookmark-item card border border-theme p-4 rounded bg-theme draggable ${animationClass}" draggable="true" data-id="${bookmark.id}" role="listitem">
                         <div class="flex items-center space-x-3">
-                            <img src="${favicon}" alt="${bookmark.name} favicon" class="w-6 h-6" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" width=\"32\" height=\"32\"%3E%3Cpath d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92c-.5.51-.86.97-1.04 1.69-.08.32-.13.68-.13 1.14h-2v-.5c0-.83.36-1.59.88-2.09l1.07-1.08c.31-.31.49-.74.49-1.21 0-.95-.77-1.72-1.72-1.72s-1.72.77-1.72 1.72H8.5c0-1.83 1.49-3.32 3.32-3.32s3.32 1.49 3.32 3.32c0 .83-.32 1.59-.82 2.13z\"/%3E%3C/svg%3E'; console.error('Favicon failed to load for ${bookmark.url}');">
+                            <img src="${favicon}" alt="" class="w-6 h-6" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"${encodeURIComponent(faviconColor)}\" d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z\"/%3E%3C/svg%3E';">
                             <div>
                                 <h3 class="font-semibold text-theme">
                                     <a href="${bookmark.url}" target="_blank" class="text-blue-600 hover:underline">${bookmark.name}</a>
