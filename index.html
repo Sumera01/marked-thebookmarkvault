@@ -1110,26 +1110,26 @@
 
     <script>
         // LocalStorage handling
-        const storage = {
-            getCategories() {
-                return JSON.parse(localStorage.getItem('categories')) || [];
-            },
-            getBookmarks() {
-                return JSON.parse(localStorage.getItem('bookmarks')) || [];
-            },
-            saveCategories(categories) {
-                localStorage.setItem('categories', JSON.stringify(categories));
-            },
-            saveBookmarks(bookmarks) {
-                localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-            },
-            getTheme() {
-                return localStorage.getItem('theme') || 'white';
-            },
-            saveTheme(theme) {
-                localStorage.setItem('theme', theme);
-            }
-        };
+    const storage = {
+        getCategories() {
+            return JSON.parse(localStorage.getItem('categories')) || [];
+        },
+        getBookmarks() {
+            return JSON.parse(localStorage.getItem('bookmarks')) || [];
+        },
+        saveCategories(categories) {
+            localStorage.setItem('categories', JSON.stringify(categories));
+        },
+        saveBookmarks(bookmarks) {
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        },
+        getTheme() {
+            return localStorage.getItem('theme') || 'white';
+        },
+        saveTheme(theme) {
+            localStorage.setItem('theme', theme);
+        }
+    };
 
         // DOM elements
         const loader = document.getElementById('loader');
@@ -1442,38 +1442,61 @@
         }
 
         // Import/Export
-        function exportBookmarks() {
-            const data = {
-                categories: storage.getCategories(),
-                bookmarks: storage.getBookmarks()
-            };
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'bookmark-manager.json';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
+        // Import/Export
+    function exportBookmarks() {
+        const data = {
+            categories: storage.getCategories(),
+            bookmarks: storage.getBookmarks()
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'bookmark-manager.json';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
 
-        function importBookmarks(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data.categories) storage.saveCategories(data.categories);
-                    if (data.bookmarks) storage.saveBookmarks(data.bookmarks);
-                    renderCategories();
-                    renderBookmarks();
-                    alert('Bookmarks imported successfully!');
-                } catch (error) {
-                    alert('Error importing bookmarks: Invalid file format');
+    function importBookmarks(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+            try {
+                const data = JSON.parse(e.target.result);
+
+                // Get existing categories and bookmarks
+                let existingCategories = storage.getCategories();
+                let existingBookmarks = storage.getBookmarks();
+
+                // Handle categories: Append new categories, avoid duplicates by id
+                if (data.categories) {
+                    const newCategories = data.categories.filter(
+                        newCat => !existingCategories.some(existingCat => existingCat.id === newCat.id)
+                    );
+                    existingCategories = [...existingCategories, ...newCategories];
+                    storage.saveCategories(existingCategories);
                 }
-            };
-            reader.readAsText(file);
-        }
+
+                // Handle bookmarks: Append new bookmarks, avoid duplicates by id
+                if (data.bookmarks) {
+                    const newBookmarks = data.bookmarks.filter(
+                        newBookmark => !existingBookmarks.some(existingBookmark => existingBookmark.id === newBookmark.id)
+                    );
+                    existingBookmarks = [...existingBookmarks, ...newBookmarks];
+                    storage.saveBookmarks(existingBookmarks);
+                }
+
+                // Re-render the UI with the updated data
+                renderCategories();
+                renderBookmarks();
+                alert('Bookmarks and categories imported successfully! New entries have been added to the existing ones.');
+            } catch (error) {
+                alert('Error importing bookmarks: Invalid file format');
+            }
+        };
+        reader.readAsText(file);
+    }
 
         // Event listeners
         addCategoryBtn.addEventListener('click', () => {
